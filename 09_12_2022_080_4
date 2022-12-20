@@ -1,0 +1,67 @@
+//Q4. Design and implement an algorithm to evaluate an arithmetic expression which in the form of postfix and demonstrate its working with suitable example.
+
+
+#include<stdio.h>  //adding the header file
+
+int stack[20];      //add stack array with the size
+int top=-1;
+
+void push(int x)       //intialise the push function 
+{
+stack[++top]=x;
+}
+
+int pop()              //intialise the pop function 
+{
+return stack[top--];
+}
+
+int main()
+{
+char exp[20];             //declare the exp array 
+char *e;
+int n1, n2, n3, num;
+printf("Enter the expression::");
+scanf("%s", exp);            
+e=exp;
+while(*e!='\0')      //intialise the while loop 
+{
+if(isdigit(*e))         //check whether the expression is digit or not
+{
+num=*e-48;
+push(num);         //push the num in the stack
+}
+else
+{
+n1=pop();
+n2=pop();
+switch(*e)         //initiate the switch case 
+{
+case '+' :
+{
+n3=n1+n2;
+break;
+}
+case '-' :
+{
+n3=n2-n1;
+break;
+}
+case '*' :
+{
+n3=n2*n1;
+break;
+}
+case '/' :
+{
+n3=n2/n1;
+break;
+}
+}
+push(n3);
+}
+e++;         //increment the value of e
+}
+printf("The result of expression is %s = %d\n", exp, pop());
+return 0;
+}
